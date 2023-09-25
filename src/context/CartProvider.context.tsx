@@ -11,6 +11,7 @@ export interface CartItem {
 interface CartContextProps {
   addToCart: (product: Product, quantity: number) => void;
   removeFromCart: (id: Product["id"]) => void;
+  increaseQtyById: (id: Product["id"], quantity: number) => void;
   clearCart: () => void;
   getCartQty: () => number;
   cart: CartItem[];
@@ -66,7 +67,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ addToCart, removeFromCart, clearCart, getCartQty, cart }}
+      value={{
+        addToCart,
+        removeFromCart,
+        increaseQtyById,
+        clearCart,
+        getCartQty,
+        cart,
+      }}
     >
       {children}
     </CartContext.Provider>
