@@ -33,9 +33,7 @@ function ShoppingCartItemComponent({ cartItem }: ShoppingCartItemProps) {
               variant={"outline"}
               className="border-none hover:bg-transparent p-0"
               disabled={cartItem.quantity === 1}
-              onClick={() =>
-                increaseQtyById(cartItem.product.id, -1)
-              }
+              onClick={() => increaseQtyById(cartItem.product.id, -1)}
             >
               <Minus size={18} />
             </Button>
@@ -44,15 +42,13 @@ function ShoppingCartItemComponent({ cartItem }: ShoppingCartItemProps) {
               variant={"outline"}
               className="border-none hover:bg-transparent"
             >
-              <span className="">{cartItem.quantity}</span>
+              {cartItem.quantity}
             </Button>
             <Button
               size={"sm"}
               variant={"outline"}
               className="border-none hover:bg-transparent p-0"
-              onClick={() =>
-                increaseQtyById(cartItem.product.id, 1)
-              }
+              onClick={() => increaseQtyById(cartItem.product.id, 1)}
             >
               <Plus size={18} />
             </Button>

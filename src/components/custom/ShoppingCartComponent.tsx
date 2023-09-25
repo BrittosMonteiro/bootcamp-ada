@@ -18,15 +18,9 @@ export const ShoppingCartComponent = () => {
 
   return (
     <Sheet>
-      <SheetTrigger>
-        <Button
-          variant="outline"
-          className="gap-2"
-          size={getCartQty() > 0 ? "default" : "icon"}
-        >
-          <ShoppingCart className="dark:text-white text-black" />
-          {getCartQty() > 0 && <span>{getCartQty()}</span>}
-        </Button>
+      <SheetTrigger className="flex gap-2 border rounded p-2 dark:bg-background dark:hover:bg-neutral-800">
+        <ShoppingCart className="dark:text-white text-black" />
+        {getCartQty() > 0 && <span>{getCartQty()}</span>}
       </SheetTrigger>
       <SheetContent className="flex flex-col gap-4">
         <SheetHeader>
