@@ -1,7 +1,8 @@
 "use client";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { Product } from "./ProductProvider.context";
 import { findItemInCart } from "@/components/utils";
+import { getCartStore, removeStore, setCartStore } from "@/utils/cartStore";
 
 export interface CartItem {
   product: Product;
@@ -26,24 +27,32 @@ export const CartContext = createContext({} as CartContextProps);
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product, quantity: number) => {
+  useEffect(() => {
+    const cartStore = getCartStore();
+    if (cartStore) setCart(cartStore);
+  }, []);
+
+  const addToCart = (product: Product, quantity: number): void => {
     const isInCart = findItemInCart(product.id, cart);
     if (isInCart) {
       increaseQtyById(product.id, quantity);
     } else {
-      setCart([...cart, { product, quantity }]);
+      setCartStore([...cart, { product, quantity }]);
+      updateCart([...cart, { product, quantity }]);
     }
   };
 
-  const removeFromCart = (id: Product["id"]) => {
+  const removeFromCart = (id: Product["id"]): void => {
     const isInCart = findItemInCart(id, cart);
     if (isInCart) {
       const updatedCart = cart.filter((e) => e.product.id !== id);
+      setCartStore(updatedCart);
       updateCart(updatedCart);
     }
   };
 
   const clearCart = () => {
+    removeStore();
     updateCart([]);
   };
 
@@ -54,14 +63,15 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       }
       return item;
     });
+    setCartStore(updatedCartQuantity);
     updateCart(updatedCartQuantity);
   };
 
-  const getCartQty = () => {
+  const getCartQty = (): number => {
     return cart.reduce((acc, cur) => acc + cur.quantity, 0);
   };
 
-  const updateCart = (newCart: CartItem[]) => {
+  const updateCart = (newCart: CartItem[]): void => {
     setCart(newCart);
   };
 
