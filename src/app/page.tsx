@@ -14,6 +14,14 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-start gap-[24px]">
       <HeaderComponent />
       <MainContentComponent>
+        <div className="flex flex-col">
+          <span className="text-3xl font-semibold dark:text-neutral-400 text-neutral-700">
+            Products
+          </span>
+          <span className="text-sm dark:text-neutral-400 text-neutral-700">
+            1000 products found
+          </span>
+        </div>
         <FilterComponent />
         <PaginationComponent pageNumber={currentPage} />
         <ProductsListComponent />

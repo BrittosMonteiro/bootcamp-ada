@@ -12,9 +12,11 @@ import {
 import { Separator } from "../ui/separator";
 import ShoppingCartItemComponent from "./ShoppingCartItemComponent";
 import { ScrollArea } from "../ui/scroll-area";
+import {useRouter} from 'next/navigation';
 
 export const ShoppingCartComponent = () => {
   const { cart, clearCart, getCartQty } = useCart();
+  const router = useRouter()
 
   return (
     <Sheet>
@@ -27,7 +29,7 @@ export const ShoppingCartComponent = () => {
           <SheetTitle>Cart</SheetTitle>
           {cart.length > 0 && (
             <SheetDescription asChild>
-              <Button variant={"link"}>Go to cart</Button>
+              <Button variant={"link"} onClick={() => router.push('/cart')}>Go to cart</Button>
             </SheetDescription>
           )}
         </SheetHeader>
